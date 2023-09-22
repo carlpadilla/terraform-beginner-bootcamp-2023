@@ -2,62 +2,95 @@
 
 ## Semantic Versioning
 
-This project is going to utilize semantic versioning for its tagging.
-[semver.org](https://semver.org/)
+This project adheres to semantic versioning conventions. For details, refer to [semver.org](https://semver.org/).
 
-The general format: 
+Format: **MAJOR.MINOR.PATCH**, e.g., `1.0.1`:
+- **MAJOR** - Incompatible API changes
+- **MINOR** - Backward-compatible new functionalities
+- **PATCH** - Backward-compatible bug fixes
 
- **MAJOR.MINOR.PATCH**, eg. `1.0.1`:
+## Setting Up Terraform CLI
 
-- **MAJOR** version when you make incompatible API changes
-- **MINOR** version when you add functionality in a backward compatible manner
-- **PATCH** version when you make backward compatible bug fixes
+### Updates in Terraform CLI Installation 
 
-## Install the Terraform CLI
+Due to changes in the gpg keyring, the Terraform CLI installation instructions have been updated. Please refer to the [latest installation guide](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli).
 
-### Considerations with the Terraform CLI changes
-The Terraform CLI installation instrcutions have changed due to gpg keyring changes. So we needed to refer to the latest install CLI instructions via Terraform Documentation and change the scripting for the install.
-[Install Terraform CLI](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+### Compatibility Note
 
-### Consideration for Linux Distribution
+This project is tailored for Ubuntu. Ensure your Linux Distribution is compatible by [checking your Linux OS Version](https://www.cyberciti.biz/faq/find-linux-distribution-name-version-number/).
 
-This project is built against Ubuntu.
-Please consider checking your Linux Distribution.
-
-[How to check Linux OS Version](https://www.cyberciti.biz/faq/find-linux-distribution-name-version-number/)
-
-Example of checking OS version:
-```
- $ cat /etc/*-release
-DISTRIB_ID=Ubuntu
-DISTRIB_RELEASE=22.04
-DISTRIB_CODENAME=jammy
-DISTRIB_DESCRIPTION="Ubuntu 22.04.3 LTS"
-PRETTY_NAME="Ubuntu 22.04.3 LTS"
-NAME="Ubuntu"
-VERSION_ID="22.04"
-VERSION="22.04.3 LTS (Jammy Jellyfish)"
-VERSION_CODENAME=jammy
-ID=ubuntu
-ID_LIKE=debian
-HOME_URL="https://www.ubuntu.com/"
-SUPPORT_URL="https://help.ubuntu.com/"
-BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-UBUNTU_CODENAME=jammy
+Sample command to verify OS version:
+```bash
+$ cat /etc/*-release
 ```
 
-### Refactoring into Bash Scripts
+### Streamlining Installation with Bash Scripts
 
-While fixing the Terraform CLI gpg deprecation issues we noticed that the bash scripts steps were a considerable amount of more code. So I decided to create a bash script to install the Terraform CLI.
+To address the changes in Terraform CLI and to simplify the setup, a bash script has been created:
 
-The bash script is located at: [./bin/install_terraform_cli](./bin/install_terraform_cli)
+- Script Location: [./bin/install_terraform_cli](./bin/install_terraform_cli)
+- Benefits:
+  - Keeps the Gitpod Task File ([.gitpod.yml](.gitpod.yml)) clean
+  - Facilitates easier debugging
+  - Enhances portability across projects requiring Terraform CLI
 
-- This will kepp the Gitpod Task File ([.gitpod.yml](.gitpod.yml)) tidy.
-- This will allow us an easier easier debugging
-- This will aloow better portability for other projects that need to install Terraform CLI.
+### Gitpod Lifecycle: Key Stages
 
-### Gitpod Lifecycle (Before, Init, Commit)
-https://www.gitpod.io/docs/configure/workspaces/tasks
+For details, refer to the [Gitpod lifecycle documentation](https://www.gitpod.io/docs/configure/workspaces/tasks). Note: The `init` phase in the `gitpod.yml` file won't rerun upon restarting an existing workspace.
 
-We need to be careful when using Init in the girpod.yml file, because it will not rerun if we restart an existing workspace.
+## Environment Variables (Env Vars)
+
+### Listing and Filtering Env Vars
+
+To list all Env Vars:
+```bash
+env
+```
+For specific Env Vars (e.g., AWS related):
+```bash
+env | grep AWS_
+```
+
+### Setting and Clearing Env Vars
+
+Set an Env Var:
+```bash
+export HELLO='world'
+```
+
+Unset an Env Var:
+```bash
+unset HELLO
+```
+
+For temporary assignment during command execution:
+```bash
+HELLO='world' ./bin/print_message
+```
+
+In a bash script, you can set an env var without `export`:
+```bash
+#!/usr/bin/env bash
+HELLO='world'
+echo $HELLO
+```
+
+## Displaying Variables
+
+To display an env var:
+```bash
+echo $HELLO
+```
+
+#### Variable Scope
+
+Env Vars set in one terminal won't be available in another terminal within VSCode. For persistence across terminals, set the Env Vars in your bash profile.
+
+#### Persistent Env Vars in Gitpod
+
+Store persistent Env Vars in Gitpod's Secret Storage:
+```bash
+gp env HELLO='world'
+```
+
+All subsequent workspaces will have these Env Vars available in all their terminals. For non-sensitive data, you can set Env Vars directly in `gitpod.yml`.
