@@ -109,3 +109,52 @@ aws sts get-caller-identity
 ```
 
 We'll need to use AWS IAM to generate a user to access AWS CLI
+
+
+# Terraform Basics
+
+### Terraform Registry
+
+Terraform sources its providers and modules from the Terraform registry, located at [registry.terraform.io](https://registry.terraform.io/).
+
+- **Providers** are interfaces to APIs that allow you to create resources in Terraform.
+- **Modules** are a means to make large amounts of Terraform code modular, portable, and shareable.
+
+## Terraform Console
+
+You can view a list of all Terraform commands by typing `terraform`.
+
+#### Terraform Init
+
+At the start of a new Terraform project, run `terraform init` to download the necessary binaries for the Terraform providers you'll be using.
+
+#### Terraform Plan
+`terraform plan`
+
+This command generates a changeset describing the current state of our infrastructure and the intended modifications. You can output this changeset, referred to as a "plan", for use in an apply action. However, it's often unnecessary to output it.
+
+#### Terraform Apply
+`terraform apply`
+
+This command runs a plan and passes the changeset to Terraform for execution. It will prompt you with a 'yes' or 'no' choice. 
+
+To automatically approve an apply action, use the `--auto-approve` flag: `terraform apply --auto-approve`.
+
+
+#### Terraform Lock Files
+
+Terraform introduces dependency lock files to give users more control over which provider versions are used during operations. The lockfile, named `.terraform.lock.hcl`, is created automatically the first time you run `terraform init`. It ensures consistent provider usage across multiple team members and different environments.
+
+To update the lock file after making changes to your configuration or to upgrade to newer versions of your providers, you can use the command `terraform providers lock`.
+
+The Terraform Lock File should be  committed to your Version COntrol System (VSC). Github
+
+#### Terraform State Files
+
+Terraform maintains a record of your infrastructure in what's known as a state file (`terraform.tfstate`). This file maps real-world resources to your configuration, keeps track of metadata, and improves performance for larger infrastructures. 
+
+Always handle state files with care:
+
+- Never manually edit them; they are meant to be managed by Terraform itself.
+- Consider storing them remotely, especially for team environments. Terraform offers state file storage through backends like AWS S3, Google Cloud Storage, and others.
+- Regularly back up your state files. In case of accidental deletion or corruption, having a backup can save you a lot of headaches.
