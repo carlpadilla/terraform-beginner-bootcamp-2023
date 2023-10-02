@@ -140,6 +140,13 @@ This command runs a plan and passes the changeset to Terraform for execution. It
 
 To automatically approve an apply action, use the `--auto-approve` flag: `terraform apply --auto-approve`.
 
+#### Terraform Destroy
+`terraform destroy`
+
+This command is used to remove the Terraform-managed infrastructure. It will display a plan showing what will be destroyed and will ask for confirmation before proceeding. Exercise caution when using this command as it will remove resources.
+
+To automatically approve a destroy action and bypass the confirmation prompt, use the `--auto-approve` flag: `terraform destroy --auto-approve`.
+
 
 #### Terraform Lock Files
 
@@ -158,3 +165,4 @@ Always handle state files with care:
 - Never manually edit them; they are meant to be managed by Terraform itself.
 - Consider storing them remotely, especially for team environments. Terraform offers state file storage through backends like AWS S3, Google Cloud Storage, and others.
 - Regularly back up your state files. In case of accidental deletion or corruption, having a backup can save you a lot of headaches.
+
