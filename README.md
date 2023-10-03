@@ -166,3 +166,33 @@ Always handle state files with care:
 - Consider storing them remotely, especially for team environments. Terraform offers state file storage through backends like AWS S3, Google Cloud Storage, and others.
 - Regularly back up your state files. In case of accidental deletion or corruption, having a backup can save you a lot of headaches.
 
+
+
+## Issues with Terraform Cloud Login and Gitpod Workspace
+
+When attempting to run `terraform login`, it launches a WYSIWYG (What You See Is What You Get) view to generate a token. However, it does not always work as expected in Gitpod's VSCode on the browser. Note that this issue can occur, but it doesn't always happen.
+
+The workaround is to manually generate a token in Terraform Cloud:
+
+```
+https://app.terraform.io/app/settings/tokens
+```
+
+Then, create the file manually using the following commands:
+
+```
+touch /home/gitpod/.terraform.d/credentials.tfrc.json
+open /home/gitpod/.terraform.d/credentials.tfrc.json
+```
+
+After creating the file, provide the necessary code, making sure to replace your token in the file.
+
+```json
+{
+  "credentials": {
+    "app.terraform.io": {
+      "token": "TOKEN_HERE"
+    }
+  }
+}
+```
