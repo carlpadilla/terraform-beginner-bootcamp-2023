@@ -196,3 +196,6 @@ After creating the file, provide the necessary code, making sure to replace your
   }
 }
 ```
+
+
+We have automated the process using a workaround with following bash script [bin/generate_tfrc_creds](bin/generate_tfrc_creds)
