@@ -1,5 +1,24 @@
 # Terraform Beginner Bootcamp 2023
 
+## Table of Contents
+- [Semantic Versioning](#semantic-versioning)
+- [Setting Up Terraform CLI](#setting-up-terraform-cli)
+  - [Updates in Terraform CLI Installation](#updates-in-terraform-cli-installation)
+  - [Compatibility Note](#compatibility-note)
+  - [Streamlining Installation with Bash Scripts](#streamlining-installation-with-bash-scripts)
+  - [Gitpod Lifecycle: Key Stages](#gitpod-lifecycle-key-stages)
+- [Environment Variables (Env Vars)](#environment-variables-env-vars)
+  - [Listing and Filtering Env Vars](#listing-and-filtering-env-vars)
+  - [Setting and Clearing Env Vars](#setting-and-clearing-env-vars)
+  - [Displaying Variables](#displaying-variables)
+  - [AWS CLI Installation](#aws-cli-installlation)
+- [Terraform Basics](#terraform-basics)
+  - [Terraform Registry](#terraform-registry)
+  - [Terraform Console](#terraform-console)
+  - [Terraform Lock Files](#terraform-lock-files)
+  - [Terraform State Files](#terraform-state-files)
+- [Issues with Terraform Cloud Login and Gitpod Workspace](#issues-with-terraform-cloud-login-and-gitpod-workspace)
+
 ## Semantic Versioning
 
 This project adheres to semantic versioning conventions. For details, refer to [semver.org](https://semver.org/).
