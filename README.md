@@ -162,7 +162,7 @@ Terraform maintains a record of your infrastructure in what's known as a state f
 
 Always handle state files with care:
 
-- Never manually edit them; they are meant to be managed by Terraform itself.
+- Never manually edit them, they are meant to be managed by Terraform itself.
 - Consider storing them remotely, especially for team environments. Terraform offers state file storage through backends like AWS S3, Google Cloud Storage, and others.
 - Regularly back up your state files. In case of accidental deletion or corruption, having a backup can save you a lot of headaches.
 
