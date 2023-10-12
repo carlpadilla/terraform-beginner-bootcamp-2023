@@ -127,7 +127,7 @@ We can check if our AWS credentials are configured correctly by running the foll
 aws sts get-caller-identity
 ```
 
-We'll need to use AWS IAM to generate a user to access AWS CLI
+Use AWS IAM to generate a user to access AWS CLI
 
 
 # Terraform Basics
