@@ -218,3 +218,22 @@ After creating the file, provide the necessary code, making sure to replace your
 
 
 We have automated the process using a workaround with following bash script [bin/generate_tfrc_creds](bin/generate_tfrc_creds)
+
+
+
+# week 1 - building
+
+## Root Module Structure
+
+Our root module structure is as follows:
+
+- PROJECT_ROOT
+  - variables.tf - stores the structure of input variables
+  - main.tf - everything else
+  - providers.tf - defined required providers and their configuration
+  - outputs.tf - stores our outputs
+  - terraform.tfvars - the data of variables we want to load into our terraform project
+  - README.md - required for root modules
+
+
+[Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure)
