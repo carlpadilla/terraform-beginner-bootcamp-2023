@@ -19,14 +19,14 @@ terraform {
 }
 
 # https://registry.terraform.io/providers/hashicorp/random/latest
-resource "random_string" "bucket_name" {
-  length  = 16
-  special = false
-  upper   = false
-}
+# resource "random_string" "bucket_name" {
+#   length  = 16
+#   special = false
+#   upper   = false
+# }
 # S3 Naming rule: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
-resource "aws_s3_bucket" "example" {
-  bucket = random_string.bucket_name.result
+resource "aws_s3_bucket" "website_bucket" {
+  bucket = var.bucket_name
   tags = {
   UserUuid = var.user_uuid
 }
