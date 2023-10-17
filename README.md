@@ -292,3 +292,39 @@ The order in which Terraform variables are applied is important for understandin
 5. **Variable Defaults in the Configuration**: If no values are provided through the methods mentioned above, Terraform will use default values defined within the Terraform configuration itself. These defaults are specified in the variable declarations.
 
 Understanding the order of Terraform variables helps you manage and control how input values are applied to your infrastructure deployments and ensures that you can configure your resources according to your specific needs.
+
+
+## Dealing with Configuration Drift
+
+When managing infrastructure with Terraform, it's crucial to address configuration drift. Configuration drift occurs when the actual state of your infrastructure diverges from the desired state specified in your Terraform code. This can happen for various reasons, including manual changes made to cloud resources outside of Terraform.
+
+### Fix Missing Resources with Terraform Import
+
+[Terraform Import](https://developer.hashicorp.com/terraform/cli/import) is a powerful tool for addressing configuration drift. It allows you to bring existing resources under Terraform management. Here's how you can use it:
+
+1. **Identify Drifted Resources**: First, identify the resources that have drifted from your Terraform-managed infrastructure. You can do this by comparing the state of your infrastructure with your Terraform code.
+
+2. **Create Terraform Configuration**: For each drifted resource, create a corresponding Terraform configuration block in your code, specifying its attributes and settings. Ensure that the resource block matches the existing resource as closely as possible.
+
+3. **Use `terraform import`**: Run the `terraform import` command to import the existing resource into your Terraform state. For example:
+
+   ```bash
+   terraform import aws_instance.example i-0123456789abcdef0
+   ```
+
+   Here, `aws_instance.example` is the Terraform resource block you've defined in your configuration, and `i-0123456789abcdef0` is the existing resource's identifier.
+
+4. **Update Terraform Code**: After importing, review your Terraform code to make any necessary adjustments, such as modifying attributes or dependencies, to match the imported resource.
+
+5. **Apply Changes**: Run `terraform apply` to apply the changes and ensure that your infrastructure is in the desired state.
+
+### Fix Manual Configuration
+
+In some cases, manual modifications may occur through ClickOps or direct changes to cloud resources outside of Terraform's control. To address this:
+
+- **Regularly Review State**: Periodically review the Terraform state to identify discrepancies between the actual cloud resources and the Terraform-managed state.
+
+- **Terraform Plan**: Before making changes to your infrastructure, always run `terraform plan`. This command will detect differences between your code and the current state, allowing you to assess and plan for necessary adjustments.
+
+- **Terraform Apply**: After reviewing the plan, use `terraform apply` to make changes and bring the infrastructure back into the expected state, effectively fixing any configuration drift.
+
