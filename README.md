@@ -238,6 +238,57 @@ Our root module structure is as follows:
 
 ```
 
-
-
 [Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure)
+
+## Terraform and Input Variables
+
+### Terraform Cloud Variables
+
+In Terraform, we can define two types of variables:
+
+- Environment Variables: These are typically set in your Bash terminal, for example, AWS credentials.
+- Terraform Variables: These are variables that are commonly set in your `.tfvars` file.
+
+Terraform Cloud allows us to mark Terraform Variables as sensitive, ensuring they are not displayed in the Terraform Cloud UI.
+
+### Loading Terraform Input Variables
+
+To load Terraform input variables, we have a couple of options:
+
+### Using the `-var` Flag
+
+You can use the `-var` flag to set an input variable or override a variable defined in the `.tfvars` file. For example:
+
+```shell
+terraform -var user_uuid="your-id"
+```
+
+### Using the `-var-file` Flag
+
+You can use the `-var-file` flag to specify a separate variable file that contains variable values. For instance:
+
+```shell
+terraform -var-file="custom.tfvars"
+```
+
+### Using `terraform.tfvars`
+
+Alternatively, you can define variables in a file named `terraform.tfvars`. Terraform will automatically load variable values from this file if it exists in the same directory as your Terraform configuration files.
+
+Make sure to use the appropriate method based on your requirements and best practices for managing input variables in Terraform.
+
+### Order of Terraform Variables
+
+The order in which Terraform variables are applied is important for understanding how variable values are resolved and used in your Terraform configuration. The order of precedence for Terraform variables is as follows:
+
+1. **Environment Variables**: Environment variables, if set in your Bash terminal or system environment, take the highest precedence and are usually used for sensitive information like API keys and access credentials.
+
+2. **Command-Line Flags (`-var` and `-var-file`)**: Variables set using command-line flags like `-var` and `-var-file` can override values defined in `.tfvars` files or the `terraform.tfvars` file. These allow for dynamic input during Terraform execution.
+
+3. **Variable Definitions in `.tfvars` Files**: Values defined in `.tfvars` files are used as the default values for your variables. Multiple `.tfvars` files can be used, and their values will be merged according to the order in which they are specified.
+
+4. **`terraform.tfvars`**: If present in the same directory as your Terraform configuration files, the `terraform.tfvars` file is automatically loaded and used as a source of variable values. This file provides a convenient way to define default values for variables.
+
+5. **Variable Defaults in the Configuration**: If no values are provided through the methods mentioned above, Terraform will use default values defined within the Terraform configuration itself. These defaults are specified in the variable declarations.
+
+Understanding the order of Terraform variables helps you manage and control how input values are applied to your infrastructure deployments and ensures that you can configure your resources according to your specific needs.

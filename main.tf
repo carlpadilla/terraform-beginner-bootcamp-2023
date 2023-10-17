@@ -27,9 +27,9 @@ resource "random_string" "bucket_name" {
 # S3 Naming rule: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
 resource "aws_s3_bucket" "example" {
   bucket = random_string.bucket_name.result
-#   tags = {
-#   UserUuid = var.user_uuid
-# }
+  tags = {
+  UserUuid = var.user_uuid
+}
 
 }
 
