@@ -328,3 +328,54 @@ In some cases, manual modifications may occur through ClickOps or direct changes
 
 - **Terraform Apply**: After reviewing the plan, use `terraform apply` to make changes and bring the infrastructure back into the expected state, effectively fixing any configuration drift.
 
+## Terraform Modules
+
+### Module Sources
+
+Terraform modules are reusable units of Terraform configuration that allow you to encapsulate and abstract resources, making it easier to manage infrastructure as code. Modules help promote code reusability and maintainability by encapsulating specific functionality or resources within a separate directory structure.
+
+Module sources refer to the locations from which you can source modules in your Terraform configurations. Here are some common sources for Terraform modules:
+
+1. **Local Path**: You can define a module source using a local file path. This is helpful when you have module configurations stored locally on your file system. For example:
+
+   ```hcl
+   module "my_module" {
+     source = "./path/to/my_module"
+   }
+   ```
+
+2. **GitHub**: You can source modules directly from GitHub repositories by specifying the GitHub URL. This allows you to reuse publicly available modules. For example:
+
+   ```hcl
+   module "example" {
+     source = "github.com/username/repo-name"
+   }
+   ```
+
+3. **Git Repositories**: You can also use modules from Git repositories (public or private) by specifying the Git URL. For example:
+
+   ```hcl
+   module "example" {
+     source = "git::https://git.example.com/repo.git"
+   }
+   ```
+
+4. **Terraform Registry**: The [Terraform Registry](https://registry.terraform.io) is a public repository of pre-built modules contributed by the community. You can source modules directly from the registry using the namespace and module name. For example:
+
+   ```hcl
+   module "example" {
+     source = "namespace/module-name/registry"
+   }
+   ```
+
+5. **Local Relative Paths**: If you have module configurations stored relative to your main Terraform configuration file, you can specify the source using a relative path. For example:
+
+   ```hcl
+   module "example" {
+     source = "./modules/my_module"
+   }
+   ```
+
+6. **Private Module Registries**: Some organizations maintain private module registries. You can specify sources from these private registries to share modules within your organization securely.
+
+When using module sources, it's important to ensure that you have the necessary permissions and authentication to access private repositories or registries, and that the specified source path or URL is accurate and accessible. Terraform will automatically download and manage module dependencies during `terraform init` based on the specified sources.
