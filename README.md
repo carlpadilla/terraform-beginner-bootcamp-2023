@@ -379,3 +379,12 @@ Module sources refer to the locations from which you can source modules in your 
 6. **Private Module Registries**: Some organizations maintain private module registries. You can specify sources from these private registries to share modules within your organization securely.
 
 When using module sources, it's important to ensure that you have the necessary permissions and authentication to access private repositories or registries, and that the specified source path or URL is accurate and accessible. Terraform will automatically download and manage module dependencies during `terraform init` based on the specified sources.
+
+## Working with Files in Terraform
+
+### Path Variable
+
+In terraform the is a variable called `path` that allows us to refrence local paths:
+- path.module = get the path for the current module
+- path.root = get the path for the root of the project
+[Special Path Variable](https://developer.hashicorp.com/terraform/language/expressions/references#filesystem-and-workspace-info)
