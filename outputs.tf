@@ -4,10 +4,6 @@ output "bucket_name" {
 }
 
 output "s3_website_endpoint" {
-<<<<<<< HEAD
-  description = "S3 Website endpoint URL"
-=======
   description = "Bucket name for our static site"
->>>>>>> main
   value = module.terrahouse_aws.website_endpoint
 }
