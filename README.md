@@ -379,3 +379,78 @@ Module sources refer to the locations from which you can source modules in your 
 6. **Private Module Registries**: Some organizations maintain private module registries. You can specify sources from these private registries to share modules within your organization securely.
 
 When using module sources, it's important to ensure that you have the necessary permissions and authentication to access private repositories or registries, and that the specified source path or URL is accurate and accessible. Terraform will automatically download and manage module dependencies during `terraform init` based on the specified sources.
+
+Here's the corrected and verified information in markdown syntax:
+
+## Working with Files in Terraform
+
+### Fileexists function
+
+This is a built-in Terraform function to check the existence of a file.
+
+```tf
+condition = fileexists(var.error_html_filepath)
+```
+
+[Fileexists Function Documentation](https://developer.hashicorp.com/terraform/language/functions/fileexists)
+
+### Filemd5
+
+This function computes the MD5 hash of a given file's contents.
+
+[Filemd5 Function Documentation](https://developer.hashicorp.com/terraform/language/functions/filemd5)
+
+### Path Variable
+
+In Terraform, there's a special variable called `path` that allows us to reference local paths:
+- `path.module`: Gets the path for the current module.
+- `path.root`: Gets the path for the root module.
+
+[Special Path Variable Documentation](https://developer.hashicorp.com/terraform/language/expressions/references#filesystem-and-workspace-info)
+
+```tf
+resource "aws_s3_object" "index_html" {
+  bucket = aws_s3_bucket.website_bucket.bucket
+  key    = "index.html"
+  source = "${path.root}/public/index.html"
+}
+```
+
+## Terraform Locals
+
+Locals allow us to define local variables. They can be very useful when we need to transform data into another format or reference a variable.
+
+```tf
+locals {
+  s3_origin_id = "MyS3Origin"
+}
+```
+
+[Local Values Documentation](https://developer.hashicorp.com/terraform/language/values/locals)
+
+## Terraform Data Sources
+
+This feature allows us to source data from cloud resources. It's useful when we want to reference cloud resources without importing them.
+
+```tf
+data "aws_caller_identity" "current" {}
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}
+```
+
+[Data Sources Documentation](https://developer.hashicorp.com/terraform/language/data-sources)
+
+## Working with JSON
+
+We use the `jsonencode` function to create the JSON policy inline in the HCL.
+
+```tf
+> jsonencode({"hello"="world"})
+{"hello":"world"}
+```
+
+[Jsonencode Function Documentation](https://developer.hashicorp.com/terraform/language/functions/jsonencode)
+
+Note: All the provided links have been verified and lead to the official Terraform documentation by HashiCorp.
