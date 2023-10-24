@@ -17,3 +17,23 @@ variable "bucket_name" {
     error_message = "Invalid bucket name. Bucket names must consist of only lowercase letters, numbers, and hyphens (-)."
   }
 }
+
+variable "index_html_filepath" {
+  description = "The file path for the index.html"
+  type        = string
+
+  validation {
+    condition     = fileexists(var.index_html_filepath)
+    error_message = "The specified index_html_filepath does not exist."
+  }
+}
+
+variable "error_html_filepath" {
+  description = "The file path for the error.html"
+  type        = string
+
+  validation {
+    condition     = fileexists(var.error_html_filepath)
+    error_message = "The specified index_html_filepath does not exist."
+  }
+}
