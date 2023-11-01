@@ -519,4 +519,67 @@ resource "aws_instance" "web" {
 
 
 
+## For Each Expressions
+
+`for_each` is a powerful feature in Terraform that allows you to iterate over a map or a set of strings and create multiple instances of a resource or module. This is particularly useful when you want to create similar resources without having to duplicate the configuration code for each one.
+
+Here's a basic example of how `for_each` can be used with a set of strings:
+
+```hcl
+variable "instance_names" {
+  type    = set(string)
+  default = ["instance1", "instance2", "instance3"]
+}
+
+resource "aws_instance" "example" {
+  for_each = var.instance_names
+
+  # ... other configuration ...
+  
+  tags = {
+    Name = each.key
+  }
+}
+```
+
+In this example, an AWS instance will be created for each name in the `instance_names` variable. The `each.key` expression refers to the current element of the set.
+
+`for_each` can also be used with maps, where `each.key` refers to the map key and `each.value` refers to the map value:
+
+```hcl
+variable "instances" {
+  type = map(object({
+    ami           = string
+    instance_type = string
+  }))
+
+  default = {
+    "instance1" = {
+      ami           = "ami-0c55b159cbfafe1f0"
+      instance_type = "t2.micro"
+    },
+    "instance2" = {
+      ami           = "ami-0c55b159cbfafe1f0"
+      instance_type = "t2.small"
+    }
+  }
+}
+
+resource "aws_instance" "example" {
+  for_each = var.instances
+
+  ami           = each.value.ami
+  instance_type = each.value.instance_type
+
+  tags = {
+    Name = each.key
+  }
+}
+```
+
+In this case, `for_each` iterates over the `instances` map, creating an AWS instance for each entry with the specified AMI and instance type.
+
+`for_each` is not limited to resources; it can also be used with modules, data sources, and outputs. It's a flexible tool that can greatly simplify your Terraform configurations by reducing repetition and making them easier to maintain.
+
+For the most up-to-date information and advanced usage examples, please refer to the official Terraform documentation on [For Expressions](https://developer.hashicorp.com/terraform/language/expressions/for).
 
